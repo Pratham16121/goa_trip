@@ -54,7 +54,7 @@ class EmployeesController < ApplicationController
       list_name["3"] = room_mates_name[2]["full_name"]
       rooms[i]["names"] = list_name
     end
-    render json: {"room_details": rooms}
+    render status: 200, json: {"room_details": rooms}
   end
 
   private
