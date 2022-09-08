@@ -10,4 +10,6 @@ Rails.application.routes.draw do
 
   get "empdetails", to: "employees#fetch_details"
 
+  get "roomdetails", to: "employees#fetch_room_details"
+
 end

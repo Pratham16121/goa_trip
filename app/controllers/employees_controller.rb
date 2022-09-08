@@ -36,6 +36,24 @@ class EmployeesController < ApplicationController
     render json: @User
   end
 
+  def fetch_room_details
+    rooms = Room.select("room_number", "full_name", "room_mate1", "room_mate2", "room_mate3", "id").as_json
+    # byebug
+    list_name = Hash.new
+    rooms.each_with_index do |room, i|
+      # byebug
+      room_mate1_name = Employee.select("full_name", "emp_id").where(emp_id: room["room_mate1"]).as_json[0]["full_name"]
+      room_mate2_name = Employee.select("full_name", "emp_id").where(emp_id: room["room_mate2"]).as_json[0]["full_name"]
+      room_mate3_name = Employee.select("full_name", "emp_id").where(emp_id: room["room_mate3"]).as_json[0]["full_name"] 
+      list_name["1"] = room_mate1_name
+      list_name["2"] = room_mate2_name
+      list_name["3"] = room_mate3_name
+      rooms[i]["names"] = list_name
+    end
+    # , "room_mate_names": {"1": room_mate1}
+    render json: {"room_details": rooms}
+  end
+
   private
 
   def sortParams
