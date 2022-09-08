@@ -1,20 +1,21 @@
 class EmployeesController < ApplicationController
   def index
     # Get all employees data of emps whoms rooms are not alocated
-    @Users = Employee.select("full_name", "emp_id", "gender").where("allocated": false)
-    render json: @Users
+    users = Employee.select("full_name", "emp_id", "gender").where("allocated": false)
+    render json: users
   end
+
   def update
     # We will get the 3 emp_ids (r1,r2,r3). Update in the Employee Table
-    @ids = sortParams
+    ids = sortParams
     x = 0
-    @ids.each_value do |id|
+    ids.each_value do |id|
       x += 1
     end
     if x != 3
-      render json: {"result": "Fail due to number of arguments"}
+      render status: 400 , json: {error: "Fail due to number of arguments"}
     else
-      @ids.each_value do |id|
+      ids.each_value do |id|
         obj = Employee.find_by(emp_id: id)
         obj.allocated = true
         obj.save!
@@ -24,16 +25,23 @@ class EmployeesController < ApplicationController
       obj.full_name = Employee.find_by(emp_id: @ids[:id1]).full_name
       obj.room_number = "A" + obj.room_mate1
       obj.save!
-      render json: {"result": "Successfull"}
+      render status: 200 , json: {result: "Successfull"}
     end
   end
 
   def fetch_details
     # fetch the employee details from the email id provided
-    @User = Employee.select("full_name", "emp_id", "gender").where(email: params[:email] )
-
-    # @User = Employee.find(params[:id])
-    render json: @User
+    email_id = params[:email].present? ? params[:email] : ""
+    if(email_id.match(EMAIL_REGEX))
+      user = Employee.select("full_name", "emp_id", "gender").where(email: email_id ).first
+      if(user.present?)
+        render status: 200 , json: user.as_json
+      else
+        render status: 400 , json: {error: "Email Not Found"}
+      end
+    else
+      render status: 400 , json: {error: "Use Joshsoftware email"}
+    end
   end
 
   private
