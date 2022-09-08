@@ -8,4 +8,6 @@ Rails.application.routes.draw do
 
   put "booking", to: "employees#update"
 
+  get "empdetails", to: "employees#fetch_details"
+
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_09_07_053535) do
+ActiveRecord::Schema[7.0].define(version: 2022_09_07_103514) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -21,12 +21,13 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_07_053535) do
     t.boolean "allocated", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "email"
     t.index ["emp_id"], name: "index_employees_on_emp_id", unique: true
   end
 
   create_table "rooms", force: :cascade do |t|
-    t.string "room_number"
-    t.string "full_name"
+    t.string "room_number", null: false
+    t.string "full_name", null: false
     t.string "room_mate1"
     t.string "room_mate2"
     t.string "room_mate3"

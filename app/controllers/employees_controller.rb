@@ -28,6 +28,14 @@ class EmployeesController < ApplicationController
     end
   end
 
+  def fetch_details
+    # fetch the employee details from the email id provided
+    @User = Employee.select("full_name", "emp_id", "gender").where(email: params[:email] )
+
+    # @User = Employee.find(params[:id])
+    render json: @User
+  end
+
   private
 
   def sortParams

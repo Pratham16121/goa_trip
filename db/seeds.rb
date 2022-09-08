@@ -8,6 +8,7 @@ CSV.foreach(Rails.root.join('lib/seeds/test.csv'), headers: true) do |row|
   t.full_name = row['Name']
   t.emp_id = row['Emp_Id']
   t.gender = row['Gender']
+  t.email = row['Email']
   t.save!
 
   puts "#{t.full_name} - #{t.emp_id} Saved!"
