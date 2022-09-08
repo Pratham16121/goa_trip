@@ -7,12 +7,12 @@ class EmployeesController < ApplicationController
 
   def update
     # We will get the 3 emp_ids (r1,r2,r3). Update in the Employee Table
-    ids = sortParams.as_json
+    ids = sort_params.as_json
     if ids.length != 3
       render status: 400 , json: {error: "Fail due to number of arguments"}
     else
       employees_data = Employee.select("full_name", "gender", "emp_id", "allocated").where("emp_id": [ids["id1"], ids["id2"], ids["id3"]]).as_json
-      if room_mates_of_diffrent_gender?(employees_data)
+      if room_mates_of_different_gender?(employees_data)
         render status: 400, json: {error: "All three are not of same gender"}
       elsif any_one_allocated?(employees_data)
         render status: 400, json: {error: "any one of them is allocated"}
@@ -53,14 +53,14 @@ class EmployeesController < ApplicationController
     return data[0]["allocated"] || data[1]["allocated"] || data[2]["allocated"]
   end
 
-  def room_mates_of_diffrent_gender?(data)
+  def room_mates_of_different_gender?(data)
     if data[0]["gender"] == data[1]["gender"] && data[0]["gender"] == data[2]["gender"]
       return false
     end
     true
   end
 
-  def sortParams
+  def sort_params
     params.require(:ids).permit(:id1, :id2, :id3)
   end
 end
