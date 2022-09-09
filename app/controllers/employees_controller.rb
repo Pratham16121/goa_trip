@@ -18,12 +18,13 @@ class EmployeesController < ApplicationController
       ids.each_value do |id|
         obj = Employee.find_by(emp_id: id)
         obj.allocated = true
+        obj.room = "A" + ids[:id1]
         obj.save!
       end
       obj = Room.new
       obj.room_mate1, obj.room_mate2, obj.room_mate3 = ids[:id1], ids[:id2], ids[:id3]
       obj.full_name = Employee.find_by(emp_id: ids[:id1]).full_name
-      obj.room_number = "A" + obj.room_mate1
+      obj.room_number = "A" + ids[:id1]
       obj.save!
       render status: 200 , json: {result: "Successful "}
     end
@@ -33,10 +34,11 @@ class EmployeesController < ApplicationController
     # fetch the employee details from the email id provided
     email_id = params[:email].present? ? params[:email] : ""
     if(email_id.match(EMAIL_REGEX))
-      user = Employee.select("full_name", "emp_id", "gender","allocated").where(email: email_id ).first
+      user = Employee.select("full_name", "emp_id", "gender","allocated","room").where(email: email_id ).first
       if(user.present?)
         if(user.allocated)
-          render status: 400 , json: {error: "Room already allocated"}
+          roommates = Employee.select("full_name").where("room": user.room)
+          render status: 400 , json: {error: "Room already booked", mates: roommates}
         else
           render status: 200 , json: user.as_json
         end
