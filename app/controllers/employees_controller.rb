@@ -2,7 +2,7 @@ class EmployeesController < ApplicationController
   def index
     # Get all employees data of emps whoms rooms are not alocated
     users = Employee.select("full_name", "emp_id", "gender").where("allocated": false)
-    render json: users
+    render status: 200, json: users
   end
 
   def update
@@ -46,6 +46,19 @@ class EmployeesController < ApplicationController
     else
       render status: 400 , json: {error: "Use Joshsoftware email"}
     end
+  end
+
+  def fetch_room_details
+    rooms = Room.select("room_number", "full_name", "room_mate1", "room_mate2", "room_mate3", "id").as_json
+    rooms.each_with_index do |room, i|
+      room_mates_name = Employee.select("full_name", "emp_id").where(emp_id: [room["room_mate1"], room["room_mate2"], room["room_mate3"]]).as_json
+      list_name = Hash.new
+      list_name["1"] = room_mates_name[0]["full_name"]
+      list_name["2"] = room_mates_name[1]["full_name"]
+      list_name["3"] = room_mates_name[2]["full_name"]
+      rooms[i]["names"] = list_name
+    end
+    render status: 200, json: {"room_details": rooms}
   end
 
   private
