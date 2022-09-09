@@ -1,1 +1,1 @@
-EMAIL_REGEX = /^[a-z.]+\@joshsoftware\.com|digital$/i
+EMAIL_REGEX = /^[a-z.]+\@joshsoftware\.(com|digital)$/i
