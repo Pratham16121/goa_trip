@@ -12,4 +12,6 @@ Rails.application.routes.draw do
 
   get "room_details", to: "employees#fetch_room_details"
 
+  get "employees/pending", to: "employees#pending"
+
 end
