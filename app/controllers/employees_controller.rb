@@ -12,8 +12,11 @@ class EmployeesController < ApplicationController
     ids.each_value do |id|
       x += 1
     end
+    employees_data = Employee.select("full_name", "gender", "emp_id", "allocated").where("emp_id": [ids["id1"], ids["id2"], ids["id3"]]).as_json
     if x != 3
       render status: 400 , json: {error: "Fail due to number of arguments"}
+    elsif anyone_allocate?employees_data
+      render status: 400, json: {error: "Someone is already booked. Logout and book again"}
     else
       ids.each_value do |id|
         obj = Employee.find_by(emp_id: id)
@@ -21,12 +24,13 @@ class EmployeesController < ApplicationController
         obj.room = "A" + ids[:id1]
         obj.save!
       end
+
       obj = Room.new
       obj.room_mate1, obj.room_mate2, obj.room_mate3 = ids[:id1], ids[:id2], ids[:id3]
       obj.full_name = Employee.find_by(emp_id: ids[:id1]).full_name
       obj.room_number = "A" + ids[:id1]
       obj.save!
-      render status: 200 , json: {result: "Successful "}
+      render status: 200 , json: {result: "Successful"}
     end
   end
 
@@ -68,4 +72,9 @@ class EmployeesController < ApplicationController
   def sortParams
     params.require(:ids).permit(:id1, :id2, :id3)
   end
+
+  def anyone_allocate?(data)
+    return data[0]["allocated"] || data[1]["allocated"] || data[2]["allocated"]
+  end
+
 end
