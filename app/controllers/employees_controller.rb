@@ -65,6 +65,11 @@ class EmployeesController < ApplicationController
     render status: 200, json: {"room_details": rooms}
   end
 
+  def pending
+    users = Employee.select("full_name", "emp_id", "email").where("allocated": false)
+    render status: 200, json: users
+  end
+
   private
 
   def sortParams
