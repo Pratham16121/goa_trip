@@ -1,7 +1,7 @@
 class EmployeesController < ApplicationController
   def index
     # Get all employees data of emps whoms rooms are not alocated
-    users = Employee.select("full_name", "emp_id", "gender","email").where("allocated": false)
+    users = Employee.select("full_name", "emp_id", "gender").where("allocated": false)
     render status: 200, json: users
   end
 
