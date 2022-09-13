@@ -15,9 +15,7 @@ class EmployeesController < ApplicationController
     employees_data = Employee.select("full_name", "gender", "emp_id", "allocated").where("emp_id": [ids["id1"], ids["id2"], ids["id3"]]).as_json
     if x != 3
       render status: 400 , json: {error: "Fail due to number of arguments"}
-    elsif anyone_allocate?employees_data
-      render status: 400, json: {error: "Someone is already booked. Logout and book again"}
-    else
+    elsif no_one_allocate?employees_data
       ids.each_value do |id|
         obj = Employee.find_by(emp_id: id)
         obj.allocated = true
@@ -73,8 +71,24 @@ class EmployeesController < ApplicationController
     params.require(:ids).permit(:id1, :id2, :id3)
   end
 
-  def anyone_allocate?(data)
-    return data[0]["allocated"] || data[1]["allocated"] || data[2]["allocated"]
+  def no_one_allocate?(data)
+    if data[0]["allocated"] || data[1]["allocated"] || data[2]["allocated"]
+      already_allocated=""
+      if(data[0]["allocated"])
+        already_allocated+=data[0]["full_name"].to_str
+      end
+      if(data[1]["allocated"])
+        already_allocated+=" , "+data[1]["full_name"].to_str
+      end
+      if(data[2]["allocated"])
+        already_allocated+=" , "+data[2]["full_name"].to_str
+      else
+      end
+      render json: {error: " ALREADY ALLOCATED : "+already_allocated}
+      return false
+    else
+      return true
+    end
   end
 
 end
