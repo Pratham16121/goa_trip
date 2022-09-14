@@ -61,12 +61,34 @@ class EmployeesController < ApplicationController
     end
   end
 
+  def create
+    emp_detials = employee_parameters
+    if(emp_detials[:full_name].present? and emp_detials[:emp_id].present?)
+      if(emp_detials[:email].match(EMAIL_REGEX))
+        if(emp_detials[:gender].match(GENDER_REGEX))
+          Employee.create(emp_detials)
+          render status: 200, json: {result: "Employee created Successfully"}
+        else
+          render status: 400, json: {error: "Provide gender M or F"}
+        end
+      else
+        render status: 400, json: {error: "Provide joshsoftware emailId"}
+      end
+    else
+      render status: 400, json: {error: "Wrong parameters passed"}
+    end
+  end
+
   private
 
   def sortParams
     params.require(:ids).permit(:id1, :id2, :id3)
   end
 
+  def employee_parameters
+    params.require(:employee_details).permit(:full_name, :emp_id, :gender, :email)
+  end
+  
   def no_one_allocate?(data)
     if data[0]["allocated"] || data[1]["allocated"] || data[2]["allocated"]
       already_allocated=""
