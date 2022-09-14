@@ -6,9 +6,9 @@ class RoomsController < ApplicationController
       rooms.each_with_index do |room, i|
         room_mates_name = Employee.select("full_name", "emp_id").where(emp_id: [room["room_mate1"], room["room_mate2"], room["room_mate3"]]).as_json
         list_name = Hash.new
-        list_name["1"] = room_mates_name[0]["full_name"]
-        list_name["2"] = room_mates_name[1]["full_name"]
-        list_name["3"] = room_mates_name[2]["full_name"]
+        list_name[room_mates_name[0]["emp_id"]] = room_mates_name[0]["full_name"]
+        list_name[room_mates_name[1]["emp_id"]] = room_mates_name[1]["full_name"]
+        list_name[room_mates_name[2]["emp_id"]] = room_mates_name[2]["full_name"]
         rooms[i]["names"] = list_name
       end
       render status: 200, json: {"room_details": rooms}
