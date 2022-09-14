@@ -1,7 +1,7 @@
 class RoomsController < ApplicationController
 
   def fetch_room_details
-    rooms = Room.select("room_number", "full_name", "room_mate1", "room_mate2", "room_mate3", "id").as_json
+    rooms = Room.select("room_number", "full_name", "room_mate1", "room_mate2", "room_mate3", "id","created_at").as_json
     if(rooms.present?)
       rooms.each_with_index do |room, i|
         room_mates_name = Employee.select("full_name", "emp_id").where(emp_id: [room["room_mate1"], room["room_mate2"], room["room_mate3"]]).as_json
