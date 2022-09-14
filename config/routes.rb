@@ -6,6 +6,8 @@ Rails.application.routes.draw do
 
   get "employees", to: "employees#index" 
 
+  post "employees/new", to: "employees#create"
+
   put "booking", to: "employees#update"
 
   get "empdetails", to: "employees#fetch_details"
