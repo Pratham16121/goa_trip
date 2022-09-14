@@ -63,19 +63,23 @@ class EmployeesController < ApplicationController
 
   def create
     emp_detials = employee_parameters
-    if(emp_detials[:full_name].present? and emp_detials[:emp_id].present?)
-      if(emp_detials[:email].match(EMAIL_REGEX))
-        if(emp_detials[:gender].match(GENDER_REGEX))
-          Employee.create(emp_detials)
-          render status: 200, json: {result: "Employee created Successfully"}
+    if(Employee.find_by_emp_id(emp_detials[:emp_id]).present?)
+      render status: 400, json: {error: "Employee Already exits"}
+    else
+      if(emp_detials[:full_name].present? and emp_detials[:emp_id].present?)
+        if(emp_detials[:email].match(EMAIL_REGEX))
+          if(emp_detials[:gender].match(GENDER_REGEX))
+            Employee.create(emp_detials)
+            render status: 200, json: {result: "Employee created Successfully"}
+          else
+            render status: 400, json: {error: "Provide gender M or F"}
+          end
         else
-          render status: 400, json: {error: "Provide gender M or F"}
+          render status: 400, json: {error: "Provide joshsoftware emailId"}
         end
       else
-        render status: 400, json: {error: "Provide joshsoftware emailId"}
+        render status: 400, json: {error: "Wrong parameters passed"}
       end
-    else
-      render status: 400, json: {error: "Wrong parameters passed"}
     end
   end
 
