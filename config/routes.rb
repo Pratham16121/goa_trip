@@ -10,8 +10,10 @@ Rails.application.routes.draw do
 
   get "empdetails", to: "employees#fetch_details"
 
-  get "room_details", to: "employees#fetch_room_details"
+  get "room_details", to: "rooms#fetch_room_details"
 
   get "employees/pending", to: "employees#pending"
+
+  put "booking/delete", to: "rooms#delete_room"
 
 end
