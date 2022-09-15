@@ -62,14 +62,14 @@ class EmployeesController < ApplicationController
   end
 
   def create
-    emp_detials = employee_parameters
-    if(Employee.find_by_emp_id(emp_detials[:emp_id]).present?)
+    emp_details = employee_parameters
+    if(Employee.find_by_emp_id(emp_details[:emp_id]).present?)
       render status: 400, json: {error: "Employee Already exits"}
     else
-      if(emp_detials[:full_name].present? and emp_detials[:emp_id].present?)
-        if(emp_detials[:email].match(EMAIL_REGEX))
-          if(emp_detials[:gender].match(GENDER_REGEX))
-            Employee.create(emp_detials)
+      if(emp_details[:full_name].present? and emp_details[:emp_id].present?)
+        if(emp_details[:email].match(EMAIL_REGEX))
+          if(emp_details[:gender].match(GENDER_REGEX))
+            Employee.create(emp_details)
             render status: 200, json: {result: "Employee created Successfully"}
           else
             render status: 400, json: {error: "Provide gender M or F"}
@@ -106,7 +106,7 @@ class EmployeesController < ApplicationController
         already_allocated+=" , "+data[2]["full_name"].to_str
       else
       end
-      render json: {error: " ALREADY ALLOCATED : "+already_allocated}
+      render status: 400, json: {error: " ALREADY ALLOCATED : "+already_allocated}
       return false
     else
       return true
