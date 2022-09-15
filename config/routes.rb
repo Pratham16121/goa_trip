@@ -16,6 +16,6 @@ Rails.application.routes.draw do
 
   get "employees/pending", to: "employees#pending"
 
-  put "booking/delete", to: "rooms#delete_room"
+  delete "booking/delete", to: "rooms#delete_room"
 
 end
