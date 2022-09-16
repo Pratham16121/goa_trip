@@ -111,28 +111,9 @@ table th, table td {
         <p class="explanation">Employees resource</p>
 
       <div class="article">
-        <h2>Email not found</h2>
-        <h3>GET /empdetails</h3>
+        <h2>PUT : When one of the employee is already allocated</h2>
+        <h3>PUT /booking</h3>
 
-          <h3>Parameters</h3>
-          <table class="parameters table table-striped table-bordered table-condensed">
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Description</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>
-                    <span class="name">email</span>
-                </td>
-                <td>
-                  <span class="description">Email ID</span>
-                </td>
-              </tr>
-            </tbody>
-          </table>
 
 
           <h3>Request</h3>
@@ -140,14 +121,15 @@ table th, table td {
             <h4>Headers</h4>
             <pre class="request headers">Version: HTTP/1.0
 Host: example.org
+Content-Type: application/x-www-form-urlencoded
 Cookie: </pre>
 
           <h4>Route</h4>
-          <pre class="request route highlight">GET /empdetails?email=rutuja.nirmal%40joshsoftware.digital</pre>
+          <pre class="request route highlight">PUT /booking</pre>
 
-            <h4>Query Parameters</h4>
-            <pre class="request query_parameters highlight">email: rutuja.nirmal@joshsoftware.digital</pre>
 
+            <h4>Body</h4>
+            <pre class="request body">ids[id1]=89&ids[id2]=77&ids[id3]=78</pre>
 
 
             <h3>Response</h3>
@@ -160,10 +142,10 @@ X-Permitted-Cross-Domain-Policies: none
 Referrer-Policy: strict-origin-when-cross-origin
 Content-Type: application/json; charset=utf-8
 Cache-Control: no-cache
-X-Request-Id: e8e04b44-fd6d-484b-85ad-d98fb2535618
-X-Runtime: 0.002503
+X-Request-Id: e57f2402-dcfb-4fb2-9df6-33e78cba2d54
+X-Runtime: 0.004139
 Vary: Origin
-Content-Length: 27</pre>
+Content-Length: 52</pre>
             <h4>Status</h4>
             <pre class="response status">400 Bad Request</pre>
               <h4>Body</h4>

@@ -111,8 +111,8 @@ table th, table td {
         <p class="explanation">Employees resource</p>
 
       <div class="article">
-        <h2>Getting a list of employees</h2>
-        <h3>GET /employees</h3>
+        <h2>PUT : Successful booking for all the three employees</h2>
+        <h3>PUT /booking</h3>
 
 
 
@@ -121,12 +121,15 @@ table th, table td {
             <h4>Headers</h4>
             <pre class="request headers">Version: HTTP/1.0
 Host: example.org
+Content-Type: application/x-www-form-urlencoded
 Cookie: </pre>
 
           <h4>Route</h4>
-          <pre class="request route highlight">GET /employees</pre>
+          <pre class="request route highlight">PUT /booking</pre>
 
 
+            <h4>Body</h4>
+            <pre class="request body">ids[id1]=89&ids[id2]=77&ids[id3]=78</pre>
 
 
             <h3>Response</h3>
@@ -138,12 +141,12 @@ X-Download-Options: noopen
 X-Permitted-Cross-Domain-Policies: none
 Referrer-Policy: strict-origin-when-cross-origin
 Content-Type: application/json; charset=utf-8
-ETag: W/&quot;7641e51f25e90c8b9f855b4357d94bb4&quot;
+ETag: W/&quot;42b7046a757ad2db8ea202740166420f&quot;
 Cache-Control: max-age=0, private, must-revalidate
-X-Request-Id: 5dd0f36a-0f6f-457a-911c-87be1c497cd7
-X-Runtime: 0.067163
+X-Request-Id: 72923901-b4a5-4774-a487-b7e00ac278aa
+X-Runtime: 0.028215
 Vary: Origin
-Content-Length: 68</pre>
+Content-Length: 23</pre>
             <h4>Status</h4>
             <pre class="response status">200 OK</pre>
               <h4>Body</h4>

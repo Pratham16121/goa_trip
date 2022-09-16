@@ -111,9 +111,28 @@ table th, table td {
         <p class="explanation">Employees resource</p>
 
       <div class="article">
-        <h2>Employee created successfully</h2>
-        <h3>POST employees/new</h3>
+        <h2>GET : FAIL Get employee due to Empty/Different domain email</h2>
+        <h3>GET /empdetails</h3>
 
+          <h3>Parameters</h3>
+          <table class="parameters table table-striped table-bordered table-condensed">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                    <span class="name">email</span>
+                </td>
+                <td>
+                  <span class="description">Email ID</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
 
 
           <h3>Request</h3>
@@ -121,15 +140,14 @@ table th, table td {
             <h4>Headers</h4>
             <pre class="request headers">Version: HTTP/1.0
 Host: example.org
-Content-Type: application/x-www-form-urlencoded
 Cookie: </pre>
 
           <h4>Route</h4>
-          <pre class="request route highlight">POST employees/new</pre>
+          <pre class="request route highlight">GET /empdetails?email=</pre>
 
+            <h4>Query Parameters</h4>
+            <pre class="request query_parameters highlight">email: </pre>
 
-            <h4>Body</h4>
-            <pre class="request body">employee_details[full_name]=Nandini+Jhanwar&employee_details[emp_id]=89&employee_details[gender]=F&employee_details[email]=nandini.jhanwar%40joshsoftware.com</pre>
 
 
             <h3>Response</h3>
@@ -141,14 +159,13 @@ X-Download-Options: noopen
 X-Permitted-Cross-Domain-Policies: none
 Referrer-Policy: strict-origin-when-cross-origin
 Content-Type: application/json; charset=utf-8
-ETag: W/&quot;a60ce87370e542e71fa2c3436da2d16c&quot;
-Cache-Control: max-age=0, private, must-revalidate
-X-Request-Id: 69d1592d-4c66-42cb-bb51-854f58e0e424
-X-Runtime: 0.007343
+Cache-Control: no-cache
+X-Request-Id: 0c0e014c-0c77-4da4-9f57-1b51e76e9ca4
+X-Runtime: 0.001709
 Vary: Origin
-Content-Length: 42</pre>
+Content-Length: 34</pre>
             <h4>Status</h4>
-            <pre class="response status">200 OK</pre>
+            <pre class="response status">400 Bad Request</pre>
               <h4>Body</h4>
               <pre class="response body">[binary data]</pre>
       </div>

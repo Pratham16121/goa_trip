@@ -111,8 +111,8 @@ table th, table td {
         <p class="explanation">Employees resource</p>
 
       <div class="article">
-        <h2>All employees have booked their rooms</h2>
-        <h3>GET /employees/pending</h3>
+        <h2>POST : New Employee-Use Josh software email</h2>
+        <h3>POST employees/new</h3>
 
 
 
@@ -121,12 +121,15 @@ table th, table td {
             <h4>Headers</h4>
             <pre class="request headers">Version: HTTP/1.0
 Host: example.org
+Content-Type: application/x-www-form-urlencoded
 Cookie: </pre>
 
           <h4>Route</h4>
-          <pre class="request route highlight">GET /employees/pending</pre>
+          <pre class="request route highlight">POST employees/new</pre>
 
 
+            <h4>Body</h4>
+            <pre class="request body">employee_details[full_name]=Nandini+Jhanwar&employee_details[emp_id]=89&employee_details[gender]=F&employee_details[email]=nandini.jhanwar67%40joshsoftware.com</pre>
 
 
             <h3>Response</h3>
@@ -138,14 +141,13 @@ X-Download-Options: noopen
 X-Permitted-Cross-Domain-Policies: none
 Referrer-Policy: strict-origin-when-cross-origin
 Content-Type: application/json; charset=utf-8
-ETag: W/&quot;58bbbb675285d5dc80bd4bb1800336ef&quot;
-Cache-Control: max-age=0, private, must-revalidate
-X-Request-Id: f3034b9e-0f7a-48c9-8a92-e48c890ff287
-X-Runtime: 0.002635
+Cache-Control: no-cache
+X-Request-Id: e8dfd69f-3edc-4984-94ab-d00e59b81598
+X-Runtime: 0.004203
 Vary: Origin
-Content-Length: 50</pre>
+Content-Length: 40</pre>
             <h4>Status</h4>
-            <pre class="response status">200 OK</pre>
+            <pre class="response status">400 Bad Request</pre>
               <h4>Body</h4>
               <pre class="response body">[binary data]</pre>
       </div>
