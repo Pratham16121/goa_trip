@@ -4,6 +4,9 @@ class RoomsController < ApplicationController
     rooms = Room.select("room_number", "full_name", "room_mate1", "room_mate2", "room_mate3", "id","created_at").as_json
     if(rooms.present?)
       rooms.each_with_index do |room, i|
+        time=rooms[i]["created_at"]
+        time[10]=" "
+        rooms[i]["created_at"] = time[0,19]
         room_mates_name = Employee.select("full_name", "emp_id").where(emp_id: [room["room_mate1"], room["room_mate2"], room["room_mate3"]]).as_json
         list_name = Hash.new
         list_name[room_mates_name[0]["emp_id"]] = room_mates_name[0]["full_name"]
