@@ -10,7 +10,7 @@ resource 'Employees' do
         e = Employee.new(full_name: "Rutuja Nirmal", emp_id: 13, gender: 'F')
         e.save!
       end
-      it 'Getting a list of employees' do
+      it 'GET : Get list of employees whom room is not allocated(User)' do
         do_request()
         expect(status).to eq(200)
       end
@@ -24,7 +24,7 @@ resource 'Employees' do
         e = Employee.new(full_name: "Rutuja Nirmal", emp_id: 13, gender: 'F',email: 'rutuja.nirmal@joshsoftware.com')
         e.save!
       end
-      it 'Get employee details using email' do
+      it 'GET : Get employee details using email' do
         do_request :email => "rutuja.nirmal@joshsoftware.com"
         status.should eq(200)
         response_body.should eq('{"full_name":"Rutuja Nirmal","emp_id":"13","gender":"F","allocated":false,"room":null,"id":null}')
@@ -36,7 +36,7 @@ resource 'Employees' do
         e = Employee.new(full_name: "Rutuja Nirmal", emp_id: 13, gender: 'F',email: 'rutuja.nirmal@joshsoftware.com')
         e.save!
       end
-      it 'Empty/Different domain email' do
+      it 'GET : FAIL Get employee due to Empty/Different domain email' do
         do_request :email => ""
         response_body.should eq('{"error":"Use Joshsoftware email"}')
       end
@@ -47,7 +47,7 @@ resource 'Employees' do
         e = Employee.new(full_name: "Rutuja Nirmal", emp_id: 13, gender: 'F',email: 'rutuja.nirmal@joshsoftware.com')
         e.save!
       end
-      it 'Email not found' do
+      it 'GET : Fail Get employee due to Email Not Found' do
         do_request :email => "rutuja.nirmal@joshsoftware.digital"
         status.should eq(400)
         response_body.should eq('{"error":"Email Not Found"}')
@@ -58,7 +58,7 @@ resource 'Employees' do
   post 'employees/new' do
 
     context '200' do
-      it 'Employee created successfully' do
+      it 'POST : New Employee-Employee created successfully' do
         employee_parameters = {
           employee_details: {
             full_name: "Nandini Jhanwar",
@@ -77,7 +77,7 @@ resource 'Employees' do
       before do
         Employee.create(full_name: "Nandini Jhanwar", emp_id: 89, gender: 'F',email: 'nandini.jhanwar@joshsoftware.com')
       end
-      it 'Employee already exits' do
+      it 'POST : New Employee-Employee already exits' do
         employee_parameters = {
           employee_details: {
             full_name: "Nandini Jhanwar",
@@ -93,7 +93,7 @@ resource 'Employees' do
     end
 
     context '400' do
-      it 'Use Josh software email' do
+      it 'POST : New Employee-Use Josh software email' do
         employee_parameters = {
           employee_details: {
             full_name: "Nandini Jhanwar",
@@ -109,7 +109,7 @@ resource 'Employees' do
     end
 
     context '400' do
-      it 'Gender Details : other than (M/F)' do
+      it 'POST : New Employee-Gender Details : other than (M/F)' do
         employee_parameters = {
           employee_details: {
             full_name: "Nandini Jhanwar",
@@ -125,7 +125,7 @@ resource 'Employees' do
     end
 
     context '400' do
-      it 'Wrong parameters passed (blank emp_id/only firstname)' do
+      it 'POST : New Employees-Wrong parameters passed (blank emp_id/only firstname)' do
         employee_parameters = {
           employee_details: {
             full_name: "Nandini",
@@ -168,7 +168,7 @@ resource 'Employees' do
     end
 
     context '200' do
-      it "Show all the employees who haven't been allocated with the rooms yet" do
+      it "GET : Bookings-Show all the employees who haven't been allocated with the rooms yet(Admin)" do
         do_request
         status.should eq(200)
       end
@@ -199,7 +199,7 @@ resource 'Employees' do
           allocated: true
         )
       end
-      it 'All employees have booked their rooms' do
+      it 'GET : Bookings-All employees have booked their rooms' do
         do_request
         status.should eq(200)
         response_body.should eq('{"result":"All employees have booked their rooms"}')
@@ -233,7 +233,7 @@ resource 'Employees' do
           allocated: false
         )
       end
-      it 'Successful booking for all the three employees' do
+      it 'PUT : Successful booking for all the three employees' do
         id_params = {
           ids: {
             id1: 89,
@@ -248,7 +248,7 @@ resource 'Employees' do
     end
 
     context '400' do
-      it 'Check if there are exact 3 employees for room booking' do
+      it 'PUT : Check if there are exact 3 employees for room booking' do
         id_params = {
           ids: {
             id1: 23,
@@ -263,6 +263,7 @@ resource 'Employees' do
 
     context '400' do
       before do
+        # Employee.destroy_all
         @emp1 = Employee.create(
           full_name: "Nandini Jhanwar",
           emp_id: 89,
@@ -286,7 +287,7 @@ resource 'Employees' do
         )
       end
 
-      it 'When one of the employee is already allocated' do
+      it 'PUT : When one of the employee is already allocated' do
         id_params = {
           ids: {
             id1: 89,

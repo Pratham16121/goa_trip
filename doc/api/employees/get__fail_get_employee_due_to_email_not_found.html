@@ -111,9 +111,28 @@ table th, table td {
         <p class="explanation">Employees resource</p>
 
       <div class="article">
-        <h2>Getting a list of employees</h2>
-        <h3>GET /employees</h3>
+        <h2>GET : Fail Get employee due to Email Not Found</h2>
+        <h3>GET /empdetails</h3>
 
+          <h3>Parameters</h3>
+          <table class="parameters table table-striped table-bordered table-condensed">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                    <span class="name">email</span>
+                </td>
+                <td>
+                  <span class="description">Email ID</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
 
 
           <h3>Request</h3>
@@ -124,8 +143,10 @@ Host: example.org
 Cookie: </pre>
 
           <h4>Route</h4>
-          <pre class="request route highlight">GET /employees</pre>
+          <pre class="request route highlight">GET /empdetails?email=rutuja.nirmal%40joshsoftware.digital</pre>
 
+            <h4>Query Parameters</h4>
+            <pre class="request query_parameters highlight">email: rutuja.nirmal@joshsoftware.digital</pre>
 
 
 
@@ -138,14 +159,13 @@ X-Download-Options: noopen
 X-Permitted-Cross-Domain-Policies: none
 Referrer-Policy: strict-origin-when-cross-origin
 Content-Type: application/json; charset=utf-8
-ETag: W/&quot;7641e51f25e90c8b9f855b4357d94bb4&quot;
-Cache-Control: max-age=0, private, must-revalidate
-X-Request-Id: 5dd0f36a-0f6f-457a-911c-87be1c497cd7
-X-Runtime: 0.067163
+Cache-Control: no-cache
+X-Request-Id: 968bdb32-446c-4edd-9008-b590b8c285fc
+X-Runtime: 0.003616
 Vary: Origin
-Content-Length: 68</pre>
+Content-Length: 27</pre>
             <h4>Status</h4>
-            <pre class="response status">200 OK</pre>
+            <pre class="response status">400 Bad Request</pre>
               <h4>Body</h4>
               <pre class="response body">[binary data]</pre>
       </div>
