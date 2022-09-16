@@ -111,8 +111,8 @@ table th, table td {
         <p class="explanation">Employees resource</p>
 
       <div class="article">
-        <h2>When one of the employee is already allocated</h2>
-        <h3>PUT /booking</h3>
+        <h2>POST : New Employees-Wrong parameters passed (blank emp_id/only firstname)</h2>
+        <h3>POST employees/new</h3>
 
 
 
@@ -125,11 +125,11 @@ Content-Type: application/x-www-form-urlencoded
 Cookie: </pre>
 
           <h4>Route</h4>
-          <pre class="request route highlight">PUT /booking</pre>
+          <pre class="request route highlight">POST employees/new</pre>
 
 
             <h4>Body</h4>
-            <pre class="request body">ids[id1]=89&ids[id2]=77&ids[id3]=78</pre>
+            <pre class="request body">employee_details[full_name]=Nandini&employee_details[emp_id]=&employee_details[gender]=F&employee_details[email]=nandini.jhanwar67%40joshsoftware.com</pre>
 
 
             <h3>Response</h3>
@@ -142,10 +142,10 @@ X-Permitted-Cross-Domain-Policies: none
 Referrer-Policy: strict-origin-when-cross-origin
 Content-Type: application/json; charset=utf-8
 Cache-Control: no-cache
-X-Request-Id: 3b740e12-dc9d-4d2a-84ed-b370e13eb44f
-X-Runtime: 0.002719
+X-Request-Id: cf20939e-6ff0-4e21-8cc0-e3d261cc3c66
+X-Runtime: 0.002896
 Vary: Origin
-Content-Length: 52</pre>
+Content-Length: 35</pre>
             <h4>Status</h4>
             <pre class="response status">400 Bad Request</pre>
               <h4>Body</h4>
