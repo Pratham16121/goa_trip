@@ -30,3 +30,6 @@
 
 # Not sending the local system configurations
 /config/database.yml
+
+# Ignore adding Dataset file
+/lib/seeds/test.csv
